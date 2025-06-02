@@ -53,19 +53,23 @@ cc_binary {
         "android.hardware.camera.device@3.2",
         "android.hardware.camera.device@3.4",
     ],
+
     static_libs: [
         "libcameraservice",
     ],
+
     compile_multilib: "first",
+
     cflags: [
         "-Wall",
         "-Wextra",
         "-Werror",
         "-Wno-unused-parameter",
-     ] + select(soong_config_variable("camera", "uses_miui_camera"), {
-        any @ flag_val: ["-DUSES_MIUI_CAMERA=\"" + flag_val + "\""],
+
+    ] + select(soong_config_variable("camera", "package_name"), {
+        any @ flag_val: ["-DCAMERA_PACKAGE_NAME=\"" + flag_val + "\""],
         default: [],
-     }),
+    }),
 
     init_rc: ["cameraserver.rc"],
 
